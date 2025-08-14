@@ -2,11 +2,1399 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>Página de Prueba</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luis Calderón - Software Engineer & Data Analyst</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(
+          135deg,
+          #0c0c0c 0%,
+          #1a1a2e 50%,
+          #16213e 100%
+        );
+        color: #fff;
+        overflow-x: hidden;
+        cursor: none;
+      }
+
+      /* Cursor personalizado */
+      .cursor {
+        position: fixed;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #64b3f4;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 10000;
+        transition: transform 0.2s ease;
+        mix-blend-mode: difference;
+      }
+
+      .cursor-follower {
+        position: fixed;
+        width: 8px;
+        height: 8px;
+        background: #64b3f4;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        transition: transform 0.1s ease;
+      }
+
+      /* Background animado con partículas */
+      #particles-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      }
+
+      /* Navbar futurista */
+      .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 1rem 2rem;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(100, 179, 244, 0.2);
+        z-index: 1000;
+        transition: all 0.3s ease;
+      }
+
+      .navbar.scrolled {
+        background: rgba(0, 0, 0, 0.4);
+        border-bottom: 1px solid rgba(100, 179, 244, 0.4);
+      }
+
+      .navbar-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        background: linear-gradient(45deg, #64b3f4, #c2e59c, #ff6b6b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: logoGlow 2s ease-in-out infinite alternate;
+      }
+
+      @keyframes logoGlow {
+        0% {
+          filter: drop-shadow(0 0 5px rgba(100, 179, 244, 0.5));
+        }
+        100% {
+          filter: drop-shadow(0 0 20px rgba(100, 179, 244, 0.8));
+        }
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+
+      .nav-link {
+        color: #fff;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .nav-link::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(100, 179, 244, 0.3),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
+
+      .nav-link:hover::before {
+        left: 100%;
+      }
+
+      .nav-link:hover {
+        background: rgba(100, 179, 244, 0.1);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(100, 179, 244, 0.3);
+      }
+
+      /* Hero Section */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-content {
+        text-align: center;
+        z-index: 10;
+        max-width: 800px;
+        padding: 0 2rem;
+      }
+
+      .hero-title {
+        font-size: clamp(3rem, 8vw, 6rem);
+        font-weight: 700;
+        margin-bottom: 1rem;
+        background: linear-gradient(45deg, #64b3f4, #c2e59c, #ff6b6b, #4ecdc4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 300% 300%;
+        animation: gradientShift 3s ease-in-out infinite;
+        text-shadow: 0 0 30px rgba(100, 179, 244, 0.5);
+      }
+
+      @keyframes gradientShift {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+
+      .hero-subtitle {
+        font-size: clamp(1.2rem, 3vw, 2rem);
+        margin-bottom: 2rem;
+        opacity: 0.9;
+        animation: fadeInUp 1s ease 0.5s both;
+      }
+
+      .hero-description {
+        font-size: 1.2rem;
+        margin-bottom: 3rem;
+        opacity: 0.8;
+        animation: fadeInUp 1s ease 1s both;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .cta-buttons {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        animation: fadeInUp 1s ease 1.5s both;
+      }
+
+      .cta-btn {
+        padding: 15px 30px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        border: 2px solid transparent;
+      }
+
+      .cta-primary {
+        background: linear-gradient(45deg, #64b3f4, #c2e59c);
+        color: #fff;
+        box-shadow: 0 10px 30px rgba(100, 179, 244, 0.3);
+      }
+
+      .cta-secondary {
+        background: transparent;
+        border: 2px solid #64b3f4;
+        color: #64b3f4;
+      }
+
+      .cta-btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(100, 179, 244, 0.4);
+      }
+
+      .cta-secondary:hover {
+        background: rgba(100, 179, 244, 0.1);
+        color: #fff;
+      }
+
+      /* Floating elements */
+      .floating-elements {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .floating-element {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: linear-gradient(45deg, #64b3f4, #c2e59c);
+        border-radius: 50%;
+        animation: float 6s ease-in-out infinite;
+        opacity: 0.7;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-20px) rotate(180deg);
+        }
+      }
+
+      /* About Section */
+      .about {
+        padding: 100px 0;
+        position: relative;
+        background: linear-gradient(
+          135deg,
+          #1a1a2e 0%,
+          #16213e 50%,
+          #0f3460 100%
+        );
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 80px;
+      }
+
+      .section-title h2 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 700;
+        margin-bottom: 20px;
+        background: linear-gradient(45deg, #64b3f4, #c2e59c);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .section-title::after {
+        content: "";
+        display: block;
+        width: 100px;
+        height: 4px;
+        background: linear-gradient(90deg, #64b3f4, #c2e59c);
+        margin: 20px auto;
+        border-radius: 2px;
+      }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+      }
+
+      .about-content {
+        animation: slideInLeft 1s ease;
+      }
+
+      .about-text {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        margin-bottom: 30px;
+        opacity: 0.9;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+        margin-top: 40px;
+      }
+
+      .stat-item {
+        text-align: center;
+        padding: 30px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(100, 179, 244, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .stat-item:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(100, 179, 244, 0.2);
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #64b3f4;
+        display: block;
+      }
+
+      .stat-label {
+        margin-top: 10px;
+        opacity: 0.8;
+      }
+
+      /* Skills section */
+      .skills-container {
+        animation: slideInRight 1s ease;
+      }
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 20px;
+      }
+
+      .skill-item {
+        text-align: center;
+        padding: 30px 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(100, 179, 244, 0.2);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .skill-item::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: conic-gradient(
+          transparent,
+          rgba(100, 179, 244, 0.1),
+          transparent
+        );
+        animation: rotate 4s linear infinite;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .skill-item:hover::before {
+        opacity: 1;
+      }
+
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .skill-item:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 20px 40px rgba(100, 179, 244, 0.3);
+      }
+
+      .skill-icon {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+        color: #64b3f4;
+      }
+
+      .skill-name {
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      .skill-level {
+        font-size: 0.9rem;
+        opacity: 0.8;
+      }
+
+      /* Projects Section */
+      .projects {
+        padding: 100px 0;
+        background: linear-gradient(
+          135deg,
+          #0f3460 0%,
+          #1a1a2e 50%,
+          #16213e 100%
+        );
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 40px;
+        margin-top: 60px;
+      }
+
+      .project-card {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 25px;
+        overflow: hidden;
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(100, 179, 244, 0.2);
+        transition: all 0.5s ease;
+        position: relative;
+      }
+
+      .project-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(100, 179, 244, 0.1),
+          transparent
+        );
+        transition: left 0.8s ease;
+      }
+
+      .project-card:hover::before {
+        left: 100%;
+      }
+
+      .project-card:hover {
+        transform: translateY(-20px) scale(1.02);
+        box-shadow: 0 30px 60px rgba(100, 179, 244, 0.2);
+      }
+
+      .project-image {
+        height: 250px;
+        background: linear-gradient(45deg, #64b3f4, #c2e59c, #ff6b6b);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .project-content {
+        padding: 30px;
+      }
+
+      .project-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: #64b3f4;
+      }
+
+      .project-description {
+        opacity: 0.9;
+        margin-bottom: 20px;
+        line-height: 1.6;
+      }
+
+      .tech-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 25px;
+      }
+
+      .tech-tag {
+        padding: 5px 12px;
+        background: rgba(100, 179, 244, 0.2);
+        border-radius: 15px;
+        font-size: 0.8rem;
+        color: #64b3f4;
+        border: 1px solid rgba(100, 179, 244, 0.3);
+      }
+
+      .project-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      .project-link {
+        padding: 10px 20px;
+        background: transparent;
+        border: 2px solid #64b3f4;
+        color: #64b3f4;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .project-link:hover {
+        background: #64b3f4;
+        color: #fff;
+        transform: translateY(-3px);
+      }
+
+      /* Contact Section */
+      .contact {
+        padding: 100px 0;
+        background: linear-gradient(
+          135deg,
+          #16213e 0%,
+          #0f3460 50%,
+          #1a1a2e 100%
+        );
+        position: relative;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+      }
+
+      .contact-info {
+        animation: slideInLeft 1s ease;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(100, 179, 244, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .contact-item:hover {
+        transform: translateX(10px);
+        box-shadow: 0 10px 30px rgba(100, 179, 244, 0.2);
+      }
+
+      .contact-icon {
+        font-size: 2rem;
+        color: #64b3f4;
+        margin-right: 20px;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 20px;
+        margin-top: 40px;
+      }
+
+      .social-link {
+        width: 60px;
+        height: 60px;
+        background: rgba(100, 179, 244, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #64b3f4;
+        text-decoration: none;
+        font-size: 1.5rem;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+      }
+
+      .social-link:hover {
+        background: #64b3f4;
+        color: #fff;
+        transform: translateY(-5px) scale(1.1);
+        box-shadow: 0 15px 30px rgba(100, 179, 244, 0.4);
+      }
+
+      .contact-form {
+        animation: slideInRight 1s ease;
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 15px 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(100, 179, 244, 0.2);
+        border-radius: 15px;
+        color: #fff;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-color: #64b3f4;
+        box-shadow: 0 0 20px rgba(100, 179, 244, 0.3);
+      }
+
+      .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(45deg, #64b3f4, #c2e59c);
+        border: none;
+        border-radius: 15px;
+        color: #fff;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(100, 179, 244, 0.4);
+      }
+
+      /* Animations */
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes slideInRight {
+        from {
+          opacity: 0;
+          transform: translateX(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .navbar-content {
+          padding: 0 1rem;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .hero-content {
+          padding: 0 1rem;
+        }
+
+        .about-grid,
+        .contact-grid {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .skills-grid {
+          grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        }
+
+        .stats-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
   <body>
-    <h1>Bienvenido a la página de prueba</h1>
-    <p>Esta es una página web simple creada para pruebas.</p>
+    <!-- Cursor personalizado -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Canvas para partículas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="navbar-content">
+        <div class="logo">Luis Calderón</div>
+        <ul class="nav-links">
+          <li><a href="#hero" class="nav-link">Inicio</a></li>
+          <li><a href="#about" class="nav-link">Sobre Mí</a></li>
+          <li><a href="#projects" class="nav-link">Proyectos</a></li>
+          <li><a href="#contact" class="nav-link">Contacto</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+      <div class="floating-elements">
+        <!-- Elementos flotantes generados por JS -->
+      </div>
+      <div class="hero-content">
+        <h1 class="hero-title">Luis Calderón</h1>
+        <p class="hero-subtitle">Software Engineer & Data Analyst</p>
+        <p class="hero-description">
+          Creando soluciones tecnológicas innovadoras que transforman ideas en
+          realidades digitales extraordinarias
+        </p>
+        <div class="cta-buttons">
+          <a href="#projects" class="cta-btn cta-primary">Ver Proyectos</a>
+          <a href="#contact" class="cta-btn cta-secondary">Contáctame</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+      <div class="container">
+        <div class="section-title">
+          <h2>Sobre Mí</h2>
+        </div>
+        <div class="about-grid">
+          <div class="about-content">
+            <p class="about-text">
+              Soy un ingeniero de software apasionado por crear soluciones
+              tecnológicas que marquen la diferencia. Con experiencia en
+              desarrollo full-stack y análisis de datos, me especializo en
+              transformar ideas complejas en aplicaciones elegantes y
+              funcionales.
+            </p>
+            <p class="about-text">
+              Mi enfoque se centra en la innovación constante, siempre buscando
+              las últimas tecnologías y metodologías para entregar productos
+              excepcionales que superen las expectativas.
+            </p>
+            <div class="stats-grid">
+              <div class="stat-item">
+                <span class="stat-number">5+</span>
+                <span class="stat-label">Proyectos Completados</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">2+</span>
+                <span class="stat-label">Años de Experiencia</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">15+</span>
+                <span class="stat-label">Tecnologías</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Dedicación</span>
+              </div>
+            </div>
+          </div>
+          <div class="skills-container">
+            <div class="skills-grid">
+              <div class="skill-item">
+                <div class="skill-icon">🚀</div>
+                <div class="skill-name">PHP</div>
+                <div class="skill-level">Avanzado</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-icon">⚡</div>
+                <div class="skill-name">JavaScript</div>
+                <div class="skill-level">Avanzado</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-icon">🛢️</div>
+                <div class="skill-name">MySQL</div>
+                <div class="skill-level">Experto</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-icon">🎨</div>
+                <div class="skill-name">HTML/CSS</div>
+                <div class="skill-level">Avanzado</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-icon">🐍</div>
+                <div class="skill-name">Python</div>
+                <div class="skill-level">Avanzado</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-icon">⚛️</div>
+                <div class="skill-name">React</div>
+                <div class="skill-level">Intermedio</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-icon">📊</div>
+                <div class="skill-name">Power BI</div>
+                <div class="skill-level">Avanzado</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-icon">📈</div>
+                <div class="skill-name">R</div>
+                <div class="skill-level">Intermedio</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+      <div class="container">
+        <div class="section-title">
+          <h2>Proyectos Destacados</h2>
+        </div>
+        <div class="projects-grid">
+          <div class="project-card">
+            <img
+              src="/public/images/planilla.jpg"
+              alt="Sistema de Planillas"
+              class="project-image"
+            />
+            <div class="project-content">
+              <h3 class="project-title">Sistema de Planillas y RRHH</h3>
+              <p class="project-description">
+                Aplicación web multiplataforma para gestión completa de
+                empleados, cálculo de salarios, planillas y recursos humanos.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">PHP</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">MariaDB</span>
+                <span class="tech-tag">API Rest</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link">Ver Detalles</a>
+              </div>
+            </div>
+          </div>
+
+          <style>
+            .project-image {
+              width: 100%;
+
+              border-radius: 8px;
+            }
+          </style>
+
+          <div class="project-card">
+            <img
+              src="/public/images/factura.jpg"
+              alt="Sistema de Facturación Electrónica"
+              class="project-image"
+            />
+            <div class="project-content">
+              <h3 class="project-title">Sistema de Facturación Electrónica</h3>
+              <p class="project-description">
+                Sistema completo de facturación electrónica que cumple con los
+                requisitos legales para Costa Rica.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">PHP</span>
+                <span class="tech-tag">NodeJS</span>
+                <span class="tech-tag">Bootstrap</span>
+                <span class="tech-tag">API Integration</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link">Ver Detalles</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <img
+              src="/public/images/contabilidad.jpg"
+              alt="Sistema de Contabilidad Web"
+              class="project-image"
+            />
+            <div class="project-content">
+              <h3 class="project-title">Sistema de Contabilidad Web</h3>
+              <p class="project-description">
+                Aplicación contable completa con gestión de asientos, reportes
+                financieros y control de activos.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">PHP</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">MariaDB</span>
+                <span class="tech-tag">Bootstrap</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link">Ver Detalles</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <img
+              src="/public/images/financiamiento.png"
+              alt="Sistema de Financiamiento"
+              class="project-image"
+            />
+            <div class="project-content">
+              <h3 class="project-title">Sistema de Financiamiento</h3>
+              <p class="project-description">
+                Plataforma para gestión de financiamientos automotrices con
+                cálculo de cuotas, tasas de interés y seguimiento de pagos.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">PHP</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">NodeJS</span>
+                <span class="tech-tag">MariaDB</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link">Ver Detalles</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <img
+              src="/public/images/visitas.jpg"
+              alt="Sistema de Control de visitas"
+              class="project-image"
+            />
+            <div class="project-content">
+              <h3 class="project-title">Sistema de Control de visitas</h3>
+              <p class="project-description">
+                Aplicación web multi empresa para la gestion de visitas
+                (entradas y salidas) de una organización, manejo de usuarios,
+                roles, control de horas de las visitas dentro de las
+                instalaciones, reportes y monitoreo a tiempo real.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">PHP</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">NodeJS</span>
+                <span class="tech-tag">MariaDB</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link">Ver Detalles</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+      <div class="container">
+        <div class="section-title">
+          <h2>Contacto</h2>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="contact-icon">📧</div>
+              <div>
+                <h4>Email</h4>
+                <p>luiscalderontcit@gmail.com</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📍</div>
+              <div>
+                <h4>Ubicación</h4>
+                <p>Costa Rica</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">💼</div>
+              <div>
+                <h4>Disponibilidad</h4>
+                <p style="color: #4ecdc4">Disponible para proyectos</p>
+              </div>
+            </div>
+            <div class="social-links">
+              <a
+                href="https://github.com/caldeseio"
+                class="social-link"
+                target="_blank"
+              >
+                <span>🐙</span>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/luis-calderon-962a57258"
+                class="social-link"
+                target="_blank"
+              >
+                <span>💼</span>
+              </a>
+              <a
+                href="https://www.instagram.com/luis_calde_"
+                class="social-link"
+                target="_blank"
+              >
+                <span>📸</span>
+              </a>
+            </div>
+          </div>
+          <div class="contact-form">
+            <form>
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Tu nombre"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="email"
+                  class="form-control"
+                  placeholder="Tu email"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Asunto"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <textarea
+                  class="form-control"
+                  rows="6"
+                  placeholder="Tu mensaje"
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="submit-btn">Enviar Mensaje</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // Cursor personalizado
+      const cursor = document.querySelector(".cursor");
+      const cursorFollower = document.querySelector(".cursor-follower");
+
+      document.addEventListener("mousemove", (e) => {
+        cursor.style.left = e.clientX + "px";
+        cursor.style.top = e.clientY + "px";
+
+        setTimeout(() => {
+          cursorFollower.style.left = e.clientX + "px";
+          cursorFollower.style.top = e.clientY + "px";
+        }, 50);
+      });
+
+      // Efecto hover en links
+      document.querySelectorAll("a, button").forEach((el) => {
+        el.addEventListener("mouseenter", () => {
+          cursor.style.transform = "scale(1.5)";
+        });
+        el.addEventListener("mouseleave", () => {
+          cursor.style.transform = "scale(1)";
+        });
+      });
+
+      // Navbar scroll effect
+      window.addEventListener("scroll", () => {
+        const navbar = document.querySelector(".navbar");
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+
+      // Smooth scrolling
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Elementos flotantes
+      function createFloatingElements() {
+        const container = document.querySelector(".floating-elements");
+        const elements = 15;
+
+        for (let i = 0; i < elements; i++) {
+          const element = document.createElement("div");
+          element.classList.add("floating-element");
+          element.style.left = Math.random() * 100 + "%";
+          element.style.top = Math.random() * 100 + "%";
+          element.style.animationDelay = Math.random() * 6 + "s";
+          element.style.animationDuration = Math.random() * 3 + 3 + "s";
+          container.appendChild(element);
+        }
+      }
+      createFloatingElements();
+
+      // Partículas con Three.js
+      let scene, camera, renderer, particles;
+
+      function initParticles() {
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(
+          75,
+          window.innerWidth / window.innerHeight,
+          0.1,
+          1000
+        );
+        renderer = new THREE.WebGLRenderer({
+          canvas: document.getElementById("particles-canvas"),
+          alpha: true,
+        });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        // Crear partículas
+        const particleCount = 200;
+        const positions = new Float32Array(particleCount * 3);
+        const colors = new Float32Array(particleCount * 3);
+
+        for (let i = 0; i < particleCount; i++) {
+          positions[i * 3] = (Math.random() - 0.5) * 20;
+          positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
+          positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
+
+          colors[i * 3] = Math.random();
+          colors[i * 3 + 1] = Math.random();
+          colors[i * 3 + 2] = 1;
+        }
+
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute(
+          "position",
+          new THREE.BufferAttribute(positions, 3)
+        );
+        geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+
+        const material = new THREE.PointsMaterial({
+          size: 2,
+          vertexColors: true,
+          transparent: true,
+          opacity: 0.6,
+        });
+
+        particles = new THREE.Points(geometry, material);
+        scene.add(particles);
+
+        camera.position.z = 5;
+
+        animate();
+      }
+
+      function animate() {
+        requestAnimationFrame(animate);
+
+        particles.rotation.x += 0.001;
+        particles.rotation.y += 0.002;
+
+        renderer.render(scene, camera);
+      }
+
+      // Resize handler
+      window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      // Inicializar partículas
+      initParticles();
+
+      // Animación de contadores
+      function animateCounters() {
+        const counters = document.querySelectorAll(".stat-number");
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const counter = entry.target;
+              const target = parseInt(counter.textContent);
+              const increment = target / 100;
+              let current = 0;
+
+              const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                  current = target;
+                  clearInterval(timer);
+                }
+                counter.textContent =
+                  Math.floor(current) +
+                  (counter.textContent.includes("%") ? "%" : "+");
+              }, 20);
+
+              observer.unobserve(counter);
+            }
+          });
+        });
+
+        counters.forEach((counter) => observer.observe(counter));
+      }
+
+      animateCounters();
+
+      // Efecto de parallax
+      window.addEventListener("scroll", () => {
+        const scrolled = window.pageYOffset;
+        const parallax = document.querySelectorAll(".floating-element");
+        const speed = 0.5;
+
+        parallax.forEach((element) => {
+          const yPos = -(scrolled * speed);
+          element.style.transform = `translateY(${yPos}px)`;
+        });
+      });
+
+      // Animación de aparición de elementos
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+          }
+        });
+      }, observerOptions);
+
+      // Observar elementos para animación
+      document
+        .querySelectorAll(".project-card, .skill-item, .contact-item")
+        .forEach((el) => {
+          el.style.opacity = "0";
+          el.style.transform = "translateY(50px)";
+          el.style.transition = "all 0.6s ease";
+          observer.observe(el);
+        });
+
+      // Efecto de escritura para el título
+      function typeWriter() {
+        const text = "Luis Calderón";
+        const titleElement = document.querySelector(".hero-title");
+        let i = 0;
+
+        titleElement.textContent = "";
+
+        function type() {
+          if (i < text.length) {
+            titleElement.textContent += text.charAt(i);
+            i++;
+            setTimeout(type, 100);
+          }
+        }
+
+        setTimeout(type, 1000);
+      }
+
+      // Inicializar después de que la página cargue
+      window.addEventListener("load", () => {
+        typeWriter();
+      });
+
+      // Formulario de contacto
+      document
+        .querySelector(".contact-form form")
+        .addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          // Animación del botón de envío
+          const btn = document.querySelector(".submit-btn");
+          const originalText = btn.textContent;
+
+          btn.textContent = "Enviando...";
+          btn.style.background = "linear-gradient(45deg, #4ecdc4, #44a08d)";
+
+          // Simular envío
+          setTimeout(() => {
+            btn.textContent = "¡Enviado!";
+            btn.style.background = "linear-gradient(45deg, #4ecdc4, #44a08d)";
+
+            setTimeout(() => {
+              btn.textContent = originalText;
+              btn.style.background = "linear-gradient(45deg, #64b3f4, #c2e59c)";
+            }, 2000);
+          }, 2000);
+        });
+
+      // Efecto de ondas en click
+      document.addEventListener("click", (e) => {
+        const ripple = document.createElement("div");
+        ripple.style.position = "absolute";
+        ripple.style.borderRadius = "50%";
+        ripple.style.background = "rgba(100, 179, 244, 0.6)";
+        ripple.style.transform = "scale(0)";
+        ripple.style.animation = "ripple 0.6s linear";
+        ripple.style.left = e.clientX - 10 + "px";
+        ripple.style.top = e.clientY - 10 + "px";
+        ripple.style.width = "20px";
+        ripple.style.height = "20px";
+        ripple.style.pointerEvents = "none";
+        ripple.style.zIndex = "9999";
+
+        document.body.appendChild(ripple);
+
+        setTimeout(() => {
+          ripple.remove();
+        }, 600);
+      });
+
+      // Agregar keyframe para ripple
+      const style = document.createElement("style");
+      style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+      document.head.appendChild(style);
+    </script>
   </body>
 </html>
