@@ -114,7 +114,7 @@
         text-decoration: none;
         padding: 0.5rem 1rem;
         border-radius: 25px;
-        transition: all 0.3s ease;
+
         position: relative;
         overflow: hidden;
       }
@@ -123,25 +123,17 @@
         content: "";
         position: absolute;
         top: 0;
-        left: -100%;
+
         width: 100%;
         height: 100%;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          rgba(100, 179, 244, 0.3),
-          transparent
-        );
-        transition: left 0.5s ease;
       }
 
       .nav-link:hover::before {
-        left: 100%;
       }
 
       .nav-link:hover {
         background: rgba(100, 179, 244, 0.1);
-        transform: translateY(-2px);
+
         box-shadow: 0 5px 15px rgba(100, 179, 244, 0.3);
       }
 
