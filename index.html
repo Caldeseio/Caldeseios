@@ -947,6 +947,33 @@
         <div class="projects-grid">
           <div class="project-card">
             <img
+              src="/images/landing.PNG"
+              alt="Landing Page propia para freelance"
+              class="project-image"
+            />
+            <div class="project-content">
+              <h3 class="project-title">Landing Page propia para freelance</h3>
+              <p class="project-description">
+                Pagina visualmente atractiva para atraer clientes para realizar
+                proyectos personalizados de paginas web.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">HTML</span>
+                <span class="tech-tag">CSS</span>
+                <span class="tech-tag">JavaScript</span>
+              </div>
+              <div class="project-links" style="display: block">
+                <a
+                  onclick="window.open('https://ecommerce-blond-iota.vercel.app/', '_blank')"
+                  class="project-link"
+                  >Ver Proyecto</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <img
               src="/images/planilla.jpg"
               alt="Sistema de Planillas"
               class="project-image"
@@ -2024,164 +2051,3 @@
     }
   }
 </style>
-
-<script>
-  // JAVASCRIPT DEL MODAL
-
-  // Configura aquí las imágenes de tus proyectos
-  const projectImages = {
-    facturacion: [
-      "images/inicio.PNG",
-      "images/historicas.png",
-      "images/cierre.png",
-    ],
-    proyecto2: ["ruta/imagen4.jpg", "ruta/imagen5.jpg"],
-    proyecto3: ["ruta/imagen6.jpg", "ruta/imagen7.jpg", "ruta/imagen8.jpg"],
-  };
-
-  let currentImages = [];
-  let currentImageIndex = 0;
-  let isZoomed = false;
-
-  function openModal(title, images) {
-    const modal = document.getElementById("imageModal");
-    const modalTitle = document.getElementById("modalTitle");
-    const galleryImage = document.getElementById("galleryImage");
-    const loading = document.getElementById("loading");
-
-    currentImages = images;
-    currentImageIndex = 0;
-
-    modalTitle.textContent = title;
-    modal.classList.add("active");
-
-    // Mostrar loading
-    loading.style.display = "flex";
-    galleryImage.style.display = "none";
-
-    // Cargar primera imagen
-    loadImage(0);
-    updateThumbnails();
-
-    // Prevent body scroll
-    document.body.style.overflow = "hidden";
-  }
-
-  function closeModal() {
-    const modal = document.getElementById("imageModal");
-    modal.classList.remove("active");
-    document.body.style.overflow = "auto";
-    resetZoom();
-  }
-
-  function loadImage(index) {
-    const galleryImage = document.getElementById("galleryImage");
-    const loading = document.getElementById("loading");
-
-    loading.style.display = "flex";
-    galleryImage.style.display = "none";
-
-    const img = new Image();
-    img.onload = function () {
-      galleryImage.src = this.src;
-      galleryImage.style.display = "block";
-      loading.style.display = "none";
-      updateCounter();
-      updateNavigationButtons();
-      resetZoom();
-    };
-    img.src = currentImages[index];
-
-    currentImageIndex = index;
-  }
-
-  function nextImage() {
-    if (currentImageIndex < currentImages.length - 1) {
-      loadImage(currentImageIndex + 1);
-    }
-  }
-
-  function previousImage() {
-    if (currentImageIndex > 0) {
-      loadImage(currentImageIndex - 1);
-    }
-  }
-
-  function updateCounter() {
-    const counter = document.getElementById("imageCounter");
-    counter.textContent = `${currentImageIndex + 1} de ${currentImages.length}`;
-  }
-
-  function updateNavigationButtons() {
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
-
-    prevBtn.disabled = currentImageIndex === 0;
-    nextBtn.disabled = currentImageIndex === currentImages.length - 1;
-  }
-
-  function updateThumbnails() {
-    const thumbnailStrip = document.getElementById("thumbnailStrip");
-    thumbnailStrip.innerHTML = "";
-
-    currentImages.forEach((src, index) => {
-      const thumb = document.createElement("img");
-      thumb.src = src;
-      thumb.className = "thumbnail";
-      if (index === currentImageIndex) {
-        thumb.classList.add("active");
-      }
-      thumb.onclick = () => loadImage(index);
-      thumbnailStrip.appendChild(thumb);
-    });
-  }
-
-  function toggleZoom() {
-    const galleryImage = document.getElementById("galleryImage");
-    isZoomed = !isZoomed;
-    galleryImage.classList.toggle("zoomed", isZoomed);
-  }
-
-  function resetZoom() {
-    const galleryImage = document.getElementById("galleryImage");
-    isZoomed = false;
-    galleryImage.classList.remove("zoomed");
-  }
-
-  // Event listeners
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") {
-      closeModal();
-    }
-    if (e.key === "ArrowLeft") {
-      previousImage();
-    }
-    if (e.key === "ArrowRight") {
-      nextImage();
-    }
-  });
-
-  document.addEventListener("DOMContentLoaded", function () {
-    const modal = document.getElementById("imageModal");
-    if (modal) {
-      modal.addEventListener("click", function (e) {
-        if (e.target === this) {
-          closeModal();
-        }
-      });
-    }
-  });
-</script>
-
-<!-- EJEMPLO DE CÓMO USAR EN TUS BOTONES EXISTENTES -->
-<!-- 
-Cambia tu botón actual:
-<div class="project-links">
-    <a href="#" class="project-link">Ver Detalles</a>
-</div>
-
-Por esto:
-<div class="project-links">
-    <a href="#" class="project-link" onclick="openModal('Nombre del Proyecto', projectImages.proyecto1)">Ver Detalles</a>
-</div>
--->
