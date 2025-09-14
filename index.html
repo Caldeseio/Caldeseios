@@ -810,124 +810,241 @@
     </section>
 
     <!-- About Section -->
+    <!-- About Section -->
     <section id="about" class="about">
+      <!-- Fondo animado de estrellas -->
+      <div class="stars">
+        <div
+          class="star"
+          style="width: 2px; height: 2px; top: 20%; left: 10%"
+        ></div>
+        <div
+          class="star"
+          style="width: 1px; height: 1px; top: 30%; left: 80%"
+        ></div>
+        <div
+          class="star"
+          style="width: 3px; height: 3px; top: 10%; left: 60%"
+        ></div>
+        <div
+          class="star"
+          style="width: 2px; height: 2px; top: 70%; left: 20%"
+        ></div>
+        <div
+          class="star"
+          style="width: 1px; height: 1px; top: 80%; left: 90%"
+        ></div>
+        <div
+          class="star"
+          style="width: 2px; height: 2px; top: 50%; left: 15%"
+        ></div>
+        <div
+          class="star"
+          style="width: 1px; height: 1px; top: 15%; left: 85%"
+        ></div>
+        <div
+          class="star"
+          style="width: 3px; height: 3px; top: 90%; left: 50%"
+        ></div>
+        <div
+          class="star"
+          style="width: 2px; height: 2px; top: 25%; left: 70%"
+        ></div>
+        <div
+          class="star"
+          style="width: 1px; height: 1px; top: 60%; left: 40%"
+        ></div>
+      </div>
+
+      <!-- Nebulosas flotantes -->
+      <div class="nebula nebula-1"></div>
+      <div class="nebula nebula-2"></div>
+      <div class="nebula nebula-3"></div>
+
+      <!-- Partículas flotantes -->
+      <div class="cosmic-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+      </div>
+
       <div class="container">
         <div class="section-title">
-          <h2>Sobre Mí</h2>
+          <h2 class="galaxy-title">
+            <span class="title-text">Sobre Mí</span>
+            <div class="title-glow"></div>
+          </h2>
         </div>
+
         <div class="about-grid">
-          <div class="about-content">
-            <p class="about-text">
+          <div class="about-content cosmic-card">
+            <div class="card-glow"></div>
+            <p class="about-text cosmic-text">
               Soy un ingeniero de software apasionado por crear soluciones
               tecnológicas que marquen la diferencia. Con experiencia en
               desarrollo full-stack y análisis de datos, me especializo en
               transformar ideas complejas en aplicaciones elegantes y
               funcionales.
             </p>
-            <p class="about-text">
+            <p class="about-text cosmic-text">
               Mi enfoque se centra en la innovación constante, siempre buscando
               las últimas tecnologías y metodologías para entregar productos
               excepcionales que superen las expectativas.
             </p>
+
             <div class="stats-grid">
-              <div class="stat-item">
+              <div class="stat-item cosmic-stat">
+                <div class="stat-glow"></div>
                 <span class="stat-number">5+</span>
                 <span class="stat-label">Proyectos Completados</span>
               </div>
-              <div class="stat-item">
+              <div class="stat-item cosmic-stat">
+                <div class="stat-glow"></div>
                 <span class="stat-number">2+</span>
                 <span class="stat-label">Años de Experiencia</span>
               </div>
-              <div class="stat-item">
+              <div class="stat-item cosmic-stat">
+                <div class="stat-glow"></div>
                 <span class="stat-number">10+</span>
                 <span class="stat-label">Tecnologías</span>
               </div>
-              <div class="stat-item">
+              <div class="stat-item cosmic-stat">
+                <div class="stat-glow"></div>
                 <span class="stat-number">100%</span>
                 <span class="stat-label">Dedicación</span>
               </div>
             </div>
           </div>
-          <div class="skills-container">
+
+          <div class="skills-container cosmic-card">
+            <div class="card-glow"></div>
+            <h3 class="skills-title">Constelación de Habilidades</h3>
             <div class="skills-grid">
-              <div class="skill-item">
+              <div class="skill-item cosmic-skill" data-skill="php">
+                <div class="skill-orbit"></div>
                 <div class="skill-icon">
-                  <img src="/images/php_icon_130857.png" />
+                  <img src="/images/php_icon_130857.png" alt="PHP" />
+                  <div class="skill-glow"></div>
                 </div>
                 <div class="skill-name">PHP</div>
                 <div class="skill-level">Avanzado</div>
               </div>
-              <div class="skill-item">
+
+              <div class="skill-item cosmic-skill" data-skill="javascript">
+                <div class="skill-orbit"></div>
                 <div class="skill-icon">
-                  <img src="/images/javascript_icon_130900.png" />
+                  <img
+                    src="/images/javascript_icon_130900.png"
+                    alt="JavaScript"
+                  />
+                  <div class="skill-glow"></div>
                 </div>
                 <div class="skill-name">JavaScript</div>
                 <div class="skill-level">Avanzado</div>
               </div>
-              <div class="skill-item">
+
+              <div class="skill-item cosmic-skill" data-skill="mysql">
+                <div class="skill-orbit"></div>
                 <div class="skill-icon">
                   <img
                     src="/images/mysql_workbench_macos_bigsur_icon_189924.png"
+                    alt="MySQL"
                   />
+                  <div class="skill-glow"></div>
                 </div>
                 <div class="skill-name">MySQL</div>
                 <div class="skill-level">Avanzado</div>
               </div>
-              <div class="skill-item">
+
+              <div class="skill-item cosmic-skill" data-skill="html">
+                <div class="skill-orbit"></div>
                 <div class="skill-icon">
-                  <img src="/images/file_type_html_icon_130541.png" />
+                  <img
+                    src="/images/file_type_html_icon_130541.png"
+                    alt="HTML/CSS"
+                  />
+                  <div class="skill-glow"></div>
                 </div>
                 <div class="skill-name">HTML/CSS</div>
                 <div class="skill-level">Avanzado</div>
               </div>
-              <div class="skill-item">
+
+              <div class="skill-item cosmic-skill" data-skill="python">
+                <div class="skill-orbit"></div>
                 <div class="skill-icon">
-                  <img src="/images/python_18894.png" />
+                  <img src="/images/python_18894.png" alt="Python" />
+                  <div class="skill-glow"></div>
                 </div>
                 <div class="skill-name">Python</div>
                 <div class="skill-level">Avanzado</div>
               </div>
-              <div class="skill-item">
+
+              <div class="skill-item cosmic-skill" data-skill="react">
+                <div class="skill-orbit"></div>
                 <div class="skill-icon">
-                  <img src="/images/react_original_logo_icon_146374.png" />
+                  <img
+                    src="/images/react_original_logo_icon_146374.png"
+                    alt="React"
+                  />
+                  <div class="skill-glow"></div>
                 </div>
                 <div class="skill-name">React</div>
                 <div class="skill-level">Intermedio</div>
               </div>
-              <div class="skill-item">
+
+              <div class="skill-item cosmic-skill" data-skill="powerbi">
+                <div class="skill-orbit"></div>
                 <div class="skill-icon">
-                  <img src="/images/microsoft_powerbi_logo_icon_170953.png" />
+                  <img
+                    src="/images/microsoft_powerbi_logo_icon_170953.png"
+                    alt="Power BI"
+                  />
+                  <div class="skill-glow"></div>
                 </div>
                 <div class="skill-name">Power BI</div>
                 <div class="skill-level">Avanzado</div>
               </div>
-              <div class="skill-item">
+
+              <div class="skill-item cosmic-skill" data-skill="r">
+                <div class="skill-orbit"></div>
                 <div class="skill-icon">
-                  <img src="/images/r_project_official_logo_icon_170811.png" />
+                  <img
+                    src="/images/r_project_official_logo_icon_170811.png"
+                    alt="R"
+                  />
+                  <div class="skill-glow"></div>
                 </div>
                 <div class="skill-name">R</div>
                 <div class="skill-level">Intermedio</div>
               </div>
 
-              <div class="skill-item">
+              <div class="skill-item cosmic-skill" data-skill="csharp">
+                <div class="skill-orbit"></div>
                 <div class="skill-icon">
-                  <img src="/images/c-.png" />
+                  <img src="/images/c-.png" alt="C#" />
+                  <div class="skill-glow"></div>
                 </div>
                 <div class="skill-name">C#</div>
                 <div class="skill-level">Intermedio</div>
               </div>
 
-              <div class="skill-item">
+              <div class="skill-item cosmic-skill" data-skill="java">
+                <div class="skill-orbit"></div>
                 <div class="skill-icon">
-                  <img src="/images/java (1).png" />
+                  <img src="/images/java (1).png" alt="Java" />
+                  <div class="skill-glow"></div>
                 </div>
                 <div class="skill-name">Java</div>
                 <div class="skill-level">Intermedio</div>
               </div>
 
-              <div class="skill-item">
+              <div class="skill-item cosmic-skill" data-skill="sqlserver">
+                <div class="skill-orbit"></div>
                 <div class="skill-icon">
-                  <img src="/images/servidor-sql (2).png" />
+                  <img src="/images/servidor-sql (2).png" alt="SQL Server" />
+                  <div class="skill-glow"></div>
                 </div>
                 <div class="skill-name">SQL Server</div>
                 <div class="skill-level">Intermedio</div>
@@ -937,6 +1054,627 @@
         </div>
       </div>
     </section>
+
+    <style>
+      /* Sección About con temática galaxia */
+      .about {
+        position: relative;
+        min-height: 100vh;
+        background: linear-gradient(
+          135deg,
+          #0a0a0a 0%,
+          #1a1a2e 25%,
+          #16213e 50%,
+          #0f3460 75%,
+          #533a7b 100%
+        );
+        overflow: hidden;
+        padding: 100px 0;
+      }
+
+      /* Fondo animado de estrellas */
+      .stars {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .star {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 3s infinite alternate;
+      }
+
+      .star:nth-child(odd) {
+        animation-duration: 2s;
+      }
+
+      .star:nth-child(3n) {
+        animation-duration: 4s;
+      }
+
+      @keyframes twinkle {
+        from {
+          opacity: 0.3;
+          transform: scale(1);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1.2);
+        }
+      }
+
+      /* Nebulosas flotantes */
+      .nebula {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        animation: float 25s infinite ease-in-out;
+        opacity: 0.2;
+        z-index: 1;
+      }
+
+      .nebula-1 {
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, #ff006e, transparent);
+        top: 10%;
+        right: 10%;
+        animation-delay: 0s;
+      }
+
+      .nebula-2 {
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, #8338ec, transparent);
+        bottom: 10%;
+        left: 5%;
+        animation-delay: -10s;
+      }
+
+      .nebula-3 {
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, #3a86ff, transparent);
+        top: 50%;
+        left: 70%;
+        animation-delay: -20s;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        33% {
+          transform: translateY(-50px) rotate(120deg);
+        }
+        66% {
+          transform: translateY(30px) rotate(240deg);
+        }
+      }
+
+      /* Partículas cósmicas */
+      .cosmic-particles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      .particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: linear-gradient(45deg, #00d4ff, #ff006e);
+        border-radius: 50%;
+        animation: particle-float 15s infinite linear;
+        opacity: 0.8;
+      }
+
+      .particle:nth-child(1) {
+        top: 20%;
+        left: 10%;
+        animation-delay: 0s;
+      }
+      .particle:nth-child(2) {
+        top: 60%;
+        left: 90%;
+        animation-delay: -3s;
+      }
+      .particle:nth-child(3) {
+        top: 80%;
+        left: 30%;
+        animation-delay: -6s;
+      }
+      .particle:nth-child(4) {
+        top: 40%;
+        left: 70%;
+        animation-delay: -9s;
+      }
+      .particle:nth-child(5) {
+        top: 10%;
+        left: 50%;
+        animation-delay: -12s;
+      }
+
+      @keyframes particle-float {
+        0% {
+          transform: translateY(0px) translateX(0px) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100px) translateX(50px) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      /* Container y grid */
+      .container {
+        position: relative;
+        z-index: 3;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: start;
+      }
+
+      /* Título galáctico */
+      .section-title {
+        text-align: center;
+        margin-bottom: 80px;
+      }
+
+      .galaxy-title {
+        position: relative;
+        display: inline-block;
+      }
+
+      .title-text {
+        font-size: 3.5rem;
+        font-weight: bold;
+        background: linear-gradient(135deg, #00d4ff, #ff006e, #8338ec);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+        animation: title-pulse 4s infinite ease-in-out;
+      }
+
+      .title-glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          ellipse,
+          rgba(0, 212, 255, 0.3),
+          transparent
+        );
+        border-radius: 50%;
+        filter: blur(20px);
+        animation: glow-pulse 4s infinite ease-in-out;
+      }
+
+      @keyframes title-pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      @keyframes glow-pulse {
+        0%,
+        100% {
+          opacity: 0.3;
+          transform: translate(-50%, -50%) scale(1);
+        }
+        50% {
+          opacity: 0.6;
+          transform: translate(-50%, -50%) scale(1.2);
+        }
+      }
+
+      /* Cartas cósmicas */
+      .cosmic-card {
+        position: relative;
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        transition: all 0.4s ease;
+      }
+
+      .cosmic-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+        border-color: rgba(0, 212, 255, 0.3);
+      }
+
+      .card-glow {
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(135deg, #00d4ff, #ff006e, #8338ec);
+        border-radius: 20px;
+        opacity: 0;
+        filter: blur(20px);
+        transition: opacity 0.4s ease;
+        z-index: -1;
+      }
+
+      .cosmic-card:hover .card-glow {
+        opacity: 0.4;
+      }
+
+      /* Texto cósmico */
+      .cosmic-text {
+        color: rgba(255, 255, 255, 0.9);
+        line-height: 1.8;
+        margin-bottom: 25px;
+        font-size: 1.1rem;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Grid de estadísticas */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+        margin-top: 40px;
+      }
+
+      .cosmic-stat {
+        position: relative;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 25px;
+        text-align: center;
+        transition: all 0.4s ease;
+        overflow: hidden;
+      }
+
+      .cosmic-stat:hover {
+        transform: scale(1.05);
+        border-color: rgba(0, 212, 255, 0.5);
+      }
+
+      .stat-glow {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(0, 212, 255, 0.4),
+          transparent
+        );
+        transition: left 0.6s ease;
+      }
+
+      .cosmic-stat:hover .stat-glow {
+        left: 100%;
+      }
+
+      .stat-number {
+        display: block;
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #00d4ff;
+        text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        margin-bottom: 10px;
+      }
+
+      .stat-label {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* Contenedor de habilidades */
+      .skills-title {
+        color: #fff;
+        font-size: 1.8rem;
+        margin-bottom: 40px;
+        text-align: center;
+        background: linear-gradient(135deg, #00d4ff, #ff006e);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 25px;
+      }
+
+      /* Habilidades cósmicas */
+      .cosmic-skill {
+        position: relative;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 25px 15px;
+        text-align: center;
+        transition: all 0.4s ease;
+        cursor: pointer;
+      }
+
+      .cosmic-skill:hover {
+        transform: translateY(-10px) scale(1.05);
+        border-color: rgba(0, 212, 255, 0.5);
+        box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+      }
+
+      .skill-orbit {
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        border: 2px solid transparent;
+        border-radius: 15px;
+        background: linear-gradient(45deg, #00d4ff, #ff006e, #8338ec);
+        background-size: 300% 300%;
+        animation: orbit 4s linear infinite;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        z-index: -1;
+      }
+
+      .cosmic-skill:hover .skill-orbit {
+        opacity: 0.6;
+      }
+
+      @keyframes orbit {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .skill-icon {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 15px;
+        height: 60px;
+      }
+
+      .skill-icon img {
+        width: 40px;
+        height: 40px;
+        filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.5));
+        transition: all 0.4s ease;
+      }
+
+      .cosmic-skill:hover .skill-icon img {
+        transform: scale(1.2) rotate(360deg);
+        filter: drop-shadow(0 10px 25px rgba(0, 212, 255, 0.5));
+      }
+
+      .skill-glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80px;
+        height: 80px;
+        background: radial-gradient(
+          circle,
+          rgba(0, 212, 255, 0.3),
+          transparent
+        );
+        border-radius: 50%;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+
+      .cosmic-skill:hover .skill-glow {
+        opacity: 1;
+        animation: skill-glow-pulse 2s infinite ease-in-out;
+      }
+
+      @keyframes skill-glow-pulse {
+        0%,
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(1.3);
+        }
+      }
+
+      .skill-name {
+        color: #fff;
+        font-weight: bold;
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+      }
+
+      .skill-level {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .about-grid {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+
+        .title-text {
+          font-size: 2.5rem;
+        }
+
+        .stats-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .skills-grid {
+          grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+          gap: 20px;
+        }
+
+        .cosmic-card {
+          padding: 25px;
+        }
+
+        .nebula {
+          filter: blur(60px);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .title-text {
+          font-size: 2rem;
+        }
+
+        .skills-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    </style>
+
+    <script>
+      // Animaciones interactivas adicionales
+      document.addEventListener("DOMContentLoaded", function () {
+        // Efecto de parallax para las nebulosas
+        window.addEventListener("scroll", function () {
+          const scrollY = window.pageYOffset;
+          const nebulas = document.querySelectorAll(".nebula");
+
+          nebulas.forEach((nebula, index) => {
+            const speed = 0.1 + index * 0.05;
+            nebula.style.transform = `translateY(${scrollY * speed}px)`;
+          });
+        });
+
+        // Efecto hover mejorado para las habilidades
+        const skills = document.querySelectorAll(".cosmic-skill");
+        skills.forEach((skill) => {
+          skill.addEventListener("mouseenter", function () {
+            // Crear efecto de ondas
+            const ripple = document.createElement("div");
+            ripple.style.cssText = `
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(0, 212, 255, 0.4), transparent);
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        animation: ripple 0.8s ease-out;
+      `;
+
+            const style = document.createElement("style");
+            style.textContent = `
+        @keyframes ripple {
+          to {
+            width: 200px;
+            height: 200px;
+            opacity: 0;
+          }
+        }
+      `;
+            document.head.appendChild(style);
+
+            this.appendChild(ripple);
+            setTimeout(() => {
+              this.removeChild(ripple);
+              document.head.removeChild(style);
+            }, 800);
+          });
+        });
+
+        // Animación de entrada para las estadísticas
+        const observerOptions = {
+          threshold: 0.5,
+          rootMargin: "0px 0px -50px 0px",
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const statNumbers = entry.target.querySelectorAll(".stat-number");
+              statNumbers.forEach((stat, index) => {
+                const finalValue = parseInt(stat.textContent);
+                const isPercentage = stat.textContent.includes("%");
+                const isPlus = stat.textContent.includes("+");
+
+                let currentValue = 0;
+                const increment = finalValue / 50;
+
+                const countAnimation = setInterval(() => {
+                  currentValue += increment;
+                  if (currentValue >= finalValue) {
+                    currentValue = finalValue;
+                    clearInterval(countAnimation);
+                  }
+
+                  let displayValue = Math.floor(currentValue);
+                  if (isPercentage) displayValue += "%";
+                  if (isPlus && currentValue === finalValue)
+                    displayValue += "+";
+
+                  stat.textContent = displayValue;
+                }, 30);
+              });
+            }
+          });
+        }, observerOptions);
+
+        const statsGrid = document.querySelector(".stats-grid");
+        if (statsGrid) {
+          observer.observe(statsGrid);
+        }
+      });
+    </script>
 
     <!-- Projects Section -->
     <section id="projects" class="projects">
