@@ -1082,7 +1082,7 @@
 
           <div class="skills-container cosmic-card">
             <div class="card-glow"></div>
-            <h3 class="skills-title">Constelación de Habilidades</h3>
+            <h3 class="skills-title">Habilidades</h3>
             <div class="skills-grid">
               <div class="skill-item cosmic-skill" data-skill="php">
                 <div class="skill-orbit"></div>
@@ -1228,7 +1228,7 @@
           #1a1a2e 25%,
           #16213e 50%,
           #0f3460 75%,
-          #533a7b 100%
+          #3d029b 100%
         );
 
         /*background: #0a0a1a;*/
@@ -2065,7 +2065,7 @@
             </div>
 
             <div class="social-links cosmic-social">
-              <h4 class="social-title">Sígueme en el espacio digital</h4>
+              <h4 class="social-title">Sígueme en mis redes</h4>
               <div class="social-grid">
                 <a
                   href="https://github.com/caldeseio"
@@ -2168,11 +2168,11 @@
         min-height: 100vh;
         background: linear-gradient(
           180deg,
-          #533a7b 0%,
+          #3d029b 0%,
           #1a1a3e 25%,
-          #2d1b69 50%,
-          #44318d 75%,
-          #092633 100%
+          #200677 50%,
+          #1c0d5c 75%,
+          #01151f 100%
         );
         overflow: hidden;
         padding: 100px 0;
@@ -2211,16 +2211,21 @@
           ),
           radial-gradient(2px 2px at 160px 30px, #ddd, transparent);
         background-repeat: repeat;
-        background-size: 200px 100px;
-        animation: move-stars 50s linear infinite;
+        background-size: 100px 100px;
+        animation: appear-and-move 20s linear infinite;
       }
 
-      @keyframes move-stars {
-        from {
-          transform: translateX(0);
+      @keyframes appear-and-move {
+        0% {
+          opacity: 0;
+          transform: translateY(0);
         }
-        to {
-          transform: translateX(-200px);
+        10% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(100px);
+          opacity: 0;
         }
       }
 
@@ -2609,7 +2614,7 @@
         min-height: 100vh;
         background: linear-gradient(
           180deg,
-          #092633 0%,
+          #01151f 0%,
           #0c0c29 25%,
           #170c3b 50%,
           #170e42 75%,
@@ -3298,9 +3303,12 @@
         }
 
         .cosmic-project,
-        .cosmic-info-card,
         .cosmic-form-card {
-          padding: 25px;
+          padding: 0px;
+        }
+
+        .cosmic-info-card {
+          padding: 10px;
         }
 
         .project-image-container {
