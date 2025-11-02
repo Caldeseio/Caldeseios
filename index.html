@@ -564,7 +564,7 @@
         background: radial-gradient(circle, #000000 0%, transparent 70%);
         border-radius: 50%;
         box-shadow: 0 0 80px 40px rgba(0, 0, 0, 0.9),
-                    inset 0 0 50px 20px rgba(0, 0, 0, 1);
+          inset 0 0 50px 20px rgba(0, 0, 0, 1);
         z-index: 3;
       }
 
@@ -970,68 +970,72 @@
       }
 
       /* ========================================
-         CARRUSEL INFINITO HORIZONTAL - SLIDER
+         CARRUSEL INFINITO - CSS PURO
          ======================================== */
 
-      @keyframes scroll {
-        0% {
-          transform: translateX(0);
-        }
-        100% {
-          transform: translateX(calc(-420px * 7));
-        }
-      }
-
       .slider {
-        background: transparent;
-        height: auto;
-        margin: auto;
-        overflow: hidden;
+        --items: 7;
+        --carousel-duration: 60s;
+        --carousel-width: 100%;
+        --carousel-item-width: 380px;
+        --carousel-item-height: 700px;
+        --carousel-item-gap: 2rem;
+
         position: relative;
-        width: 100%;
+        width: var(--carousel-width);
+        min-height: var(--carousel-item-height);
+        overflow: clip;
         padding: 60px 0;
-      }
 
-      .slider::before,
-      .slider::after {
-        background: linear-gradient(
+        /* fade out on sides */
+        mask-image: linear-gradient(
           to right,
-          var(--bg-gradient-mid) 0%,
-          rgba(26, 26, 46, 0) 100%
+          transparent,
+          black 10% 90%,
+          transparent
         );
-        content: "";
-        height: 100%;
-        position: absolute;
-        width: 200px;
-        z-index: 2;
-        pointer-events: none;
       }
 
-      .slider::after {
-        right: 0;
-        top: 0;
-        transform: rotateZ(180deg);
-      }
-
-      .slider::before {
-        left: 0;
-        top: 0;
-      }
-
-      .slider .slide-track {
-        animation: scroll 60s linear infinite;
-        display: flex;
-        width: calc(420px * 14);
-        gap: 30px;
-      }
-
-      .slider .slide-track:hover {
+      /* hover pauses animation */
+      .slider:hover > .slide {
         animation-play-state: paused;
       }
 
-      .slider .slide {
-        width: 420px;
-        flex-shrink: 0;
+      .slider > .slide {
+        position: absolute;
+        top: 0;
+        left: calc(100% + var(--carousel-item-gap));
+        width: var(--carousel-item-width);
+        height: var(--carousel-item-height);
+
+        /* animation */
+        will-change: transform;
+        animation-name: marquee;
+        animation-duration: var(--carousel-duration);
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-delay: calc(
+          var(--carousel-duration) / var(--items) * 1 * var(--i) * -1
+        );
+      }
+
+      .slider > .slide:nth-child(1) { --i: 0; }
+      .slider > .slide:nth-child(2) { --i: 1; }
+      .slider > .slide:nth-child(3) { --i: 2; }
+      .slider > .slide:nth-child(4) { --i: 3; }
+      .slider > .slide:nth-child(5) { --i: 4; }
+      .slider > .slide:nth-child(6) { --i: 5; }
+      .slider > .slide:nth-child(7) { --i: 6; }
+
+      @keyframes marquee {
+        100% {
+          transform: translateX(
+            calc(
+              (var(--items) * (var(--carousel-item-width) + var(--carousel-item-gap))) *
+                -1
+            )
+          );
+        }
       }
 
       .slider .slide .project-card {
@@ -1046,6 +1050,7 @@
         box-shadow: 0 25px 50px rgba(100, 179, 244, 0.3),
                     0 0 30px var(--glow-cyan);
         border-color: var(--accent-cyan-bright);
+        z-index: 10;
       }
 
       /* Efecto de brillo al pasar */
@@ -1072,69 +1077,86 @@
 
       /* Responsive */
       @media (max-width: 1024px) {
-        .slider .slide {
-          width: 380px;
-        }
-
-        .slider .slide-track {
-          width: calc(380px * 14);
-          gap: 25px;
-        }
-
-        @keyframes scroll {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(calc(-380px * 7));
-          }
+        .slider {
+          --carousel-item-width: 340px;
+          --carousel-item-height: 650px;
+          --carousel-item-gap: 1.5rem;
         }
       }
 
       @media (max-width: 768px) {
-        .slider .slide {
-          width: 320px;
+        .slider {
+          --carousel-duration: 50s;
+          --carousel-item-width: 280px;
+          --carousel-item-height: 680px;
+          --carousel-item-gap: 1.25rem;
         }
 
-        .slider .slide-track {
-          animation-duration: 50s;
-          width: calc(320px * 14);
-          gap: 20px;
+        .project-content {
+          padding: 18px;
         }
 
-        .slider::before,
-        .slider::after {
-          width: 100px;
+        .project-image-container {
+          height: 170px;
         }
 
-        @keyframes scroll {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(calc(-320px * 7));
-          }
+        .project-title {
+          font-size: 1.15rem;
+          margin-bottom: 8px;
+        }
+
+        .project-description {
+          font-size: 0.88rem;
+          line-height: 1.4;
+          margin-bottom: 12px;
+        }
+
+        .tech-tags {
+          gap: 6px;
+          margin-bottom: 12px;
+        }
+
+        .tech-tag {
+          font-size: 0.75rem;
+          padding: 4px 10px;
         }
       }
 
       @media (max-width: 480px) {
-        .slider .slide {
-          width: 280px;
+        .slider {
+          --carousel-duration: 45s;
+          --carousel-item-width: 260px;
+          --carousel-item-height: 650px;
+          --carousel-item-gap: 1rem;
         }
 
-        .slider .slide-track {
-          animation-duration: 40s;
-          width: calc(280px * 14);
-          gap: 15px;
+        .project-content {
+          padding: 14px;
         }
 
-        @keyframes scroll {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(calc(-280px * 7));
-          }
+        .project-image-container {
+          height: 150px;
+        }
+
+        .project-title {
+          font-size: 1.05rem;
+          margin-bottom: 6px;
+        }
+
+        .project-description {
+          font-size: 0.82rem;
+          line-height: 1.35;
+          margin-bottom: 10px;
+        }
+
+        .tech-tags {
+          gap: 5px;
+          margin-bottom: 10px;
+        }
+
+        .tech-tag {
+          font-size: 0.7rem;
+          padding: 3px 8px;
         }
       }
 
@@ -1433,8 +1455,9 @@
         <ul class="nav-links" id="nav-links">
           <li>
             <a
-              href="pdf/CV_LuisCalderon_Mejorado_ES.pdf"
-              download="Luis_Calderon_CV.pdf"
+              id="cv-download-link"
+              href="pdf/CV_Luis_Calderon_ESP.pdf"
+              download="Luis_Calderon_CV_ESP.pdf"
               class="nav-link btn-download"
               data-translate="nav_cv"
             >
@@ -2502,288 +2525,328 @@
 
         <!-- Carrusel Infinito Horizontal -->
         <div class="slider">
-          <div class="slide-track" id="projectsCarousel">
-          <!-- Grupo 1: Proyectos originales -->
-          <div class="slide">
-            <div class="project-card cosmic-project">
-              <div class="project-wrapper">
-              <div class="project-image-container">
-                <img
-                  src="/images/landing.PNG"
-                  alt="Landing Page propia para freelance"
-                  class="project-image"
-                />
-                <div class="project-overlay">
-                  <div class="project-glow"></div>
+          
+            <!-- Grupo 1: Proyectos originales -->
+            <div class="slide">
+              <div class="project-card cosmic-project">
+                <div class="project-wrapper">
+                  <div class="project-image-container">
+                    <img
+                      src="/images/landing.PNG"
+                      alt="Landing Page propia para freelance"
+                      class="project-image"
+                    />
+                    <div class="project-overlay">
+                      <div class="project-glow"></div>
+                    </div>
+                  </div>
+                  <div class="project-content">
+                    <h3 class="project-title" data-translate="project1_title">
+                      Landing Page propia para freelance
+                    </h3>
+                    <p
+                      class="project-description"
+                      data-translate="project1_description"
+                    >
+                      Página visualmente atractiva para atraer clientes para
+                      realizar proyectos personalizados de páginas web.
+                    </p>
+                    <div class="tech-tags">
+                      <span class="tech-tag">HTML</span>
+                      <span class="tech-tag">CSS</span>
+                      <span class="tech-tag">JavaScript</span>
+                    </div>
+                    <div class="project-links" style="display: block">
+                      <a
+                        onclick="window.open('https://ecommerce-blond-iota.vercel.app/', '_blank')"
+                        class="project-link"
+                      >
+                        <span data-translate="btn_view_project"
+                          >Ver Proyecto</span
+                        >
+                        <div class="link-glow"></div>
+                      </a>
+                    </div>
+                  </div>
                 </div>
+                <!-- cierre project-wrapper -->
               </div>
-              <div class="project-content">
-                <h3 class="project-title" data-translate="project1_title">
-                  Landing Page propia para freelance
-                </h3>
-                <p
-                  class="project-description"
-                  data-translate="project1_description"
-                >
-                  Página visualmente atractiva para atraer clientes para
-                  realizar proyectos personalizados de páginas web.
-                </p>
-                <div class="tech-tags">
-                  <span class="tech-tag">HTML</span>
-                  <span class="tech-tag">CSS</span>
-                  <span class="tech-tag">JavaScript</span>
-                </div>
-                <div class="project-links" style="display: block">
-                  <a
-                    onclick="window.open('https://ecommerce-blond-iota.vercel.app/', '_blank')"
-                    class="project-link"
-                  >
-                    <span data-translate="btn_view_project">Ver Proyecto</span>
-                    <div class="link-glow"></div>
-                  </a>
-                </div>
-              </div>
-              </div> <!-- cierre project-wrapper -->
-            </div> <!-- cierre project-card -->
-          </div> <!-- cierre slide -->
+              <!-- cierre project-card -->
+            </div>
+            <!-- cierre slide -->
 
-          <div class="slide">
-            <div class="project-card cosmic-project">
-              <div class="project-wrapper">
-              <div class="project-image-container">
-                <img
-                  src="/images/lumina.PNG"
-                  alt="Pagina Web con ThreeJS"
-                  class="project-image"
-                />
-                <div class="project-overlay">
-                  <div class="project-glow"></div>
+            <div class="slide">
+              <div class="project-card cosmic-project">
+                <div class="project-wrapper">
+                  <div class="project-image-container">
+                    <img
+                      src="/images/lumina.PNG"
+                      alt="Pagina Web con ThreeJS"
+                      class="project-image"
+                    />
+                    <div class="project-overlay">
+                      <div class="project-glow"></div>
+                    </div>
+                  </div>
+                  <div class="project-content">
+                    <h3 class="project-title" data-translate="project2_title">
+                      Pagina Web con ThreeJS
+                    </h3>
+                    <p
+                      class="project-description"
+                      data-translate="project2_description"
+                    >
+                      Página visualmente atractiva para clientes que vendan
+                      maquillaje o tengan un salón de belleza.
+                    </p>
+                    <div class="tech-tags">
+                      <span class="tech-tag">HTML</span>
+                      <span class="tech-tag">CSS</span>
+                      <span class="tech-tag">JavaScript</span>
+                    </div>
+                    <div class="project-links" style="display: block">
+                      <a
+                        onclick="window.open('https://beautypage.vercel.app//', '_blank')"
+                        class="project-link"
+                      >
+                        <span data-translate="btn_view_project"
+                          >Ver Proyecto</span
+                        >
+                        <div class="link-glow"></div>
+                      </a>
+                    </div>
+                  </div>
                 </div>
+                <!-- cierre project-wrapper -->
               </div>
-              <div class="project-content">
-                <h3 class="project-title" data-translate="project2_title">
-                  Pagina Web con ThreeJS
-                </h3>
-                <p
-                  class="project-description"
-                  data-translate="project2_description"
-                >
-                  Página visualmente atractiva para clientes que vendan
-                  maquillaje o tengan un salón de belleza.
-                </p>
-                <div class="tech-tags">
-                  <span class="tech-tag">HTML</span>
-                  <span class="tech-tag">CSS</span>
-                  <span class="tech-tag">JavaScript</span>
-                </div>
-                <div class="project-links" style="display: block">
-                  <a
-                    onclick="window.open('https://beautypage.vercel.app//', '_blank')"
-                    class="project-link"
-                  >
-                    <span data-translate="btn_view_project">Ver Proyecto</span>
-                    <div class="link-glow"></div>
-                  </a>
-                </div>
-              </div>
-              </div> <!-- cierre project-wrapper -->
-            </div> <!-- cierre project-card -->
-          </div> <!-- cierre slide -->
+              <!-- cierre project-card -->
+            </div>
+            <!-- cierre slide -->
 
-          <div class="slide">
-            <div class="project-card cosmic-project">
-              <div class="project-wrapper">
-              <div class="project-image-container">
-                <img
-                  src="/images/planilla.jpg"
-                  alt="Sistema de Planillas"
-                  class="project-image"
-                />
-                <div class="project-overlay">
-                  <div class="project-glow"></div>
+            <div class="slide">
+              <div class="project-card cosmic-project">
+                <div class="project-wrapper">
+                  <div class="project-image-container">
+                    <img
+                      src="/images/planilla.jpg"
+                      alt="Sistema de Planillas"
+                      class="project-image"
+                    />
+                    <div class="project-overlay">
+                      <div class="project-glow"></div>
+                    </div>
+                  </div>
+                  <div class="project-content">
+                    <h3 class="project-title" data-translate="project3_title">
+                      Sistema de Planillas y RRHH
+                    </h3>
+                    <p class="project-description" data-translate="project3_description">
+                      Aplicación web multiplataforma para gestión completa de
+                      empleados, cálculo de salarios, planillas y recursos
+                      humanos.
+                    </p>
+                    <div class="tech-tags">
+                      <span class="tech-tag">PHP</span>
+                      <span class="tech-tag">JavaScript</span>
+                      <span class="tech-tag">MariaDB</span>
+                      <span class="tech-tag">API Rest</span>
+                    </div>
+                    <div class="project-links">
+                      <a href="#" class="project-link">
+                        <span data-translate="btn_view_details"
+                          >Ver Detalles</span
+                        >
+                        <div class="link-glow"></div>
+                      </a>
+                    </div>
+                  </div>
                 </div>
+                <!-- cierre project-wrapper -->
               </div>
-              <div class="project-content">
-                <h3 class="project-title" data-translate="project3_title">
-                  Sistema de Planillas y RRHH
-                </h3>
-                <p class="project-description">
-                  Aplicación web multiplataforma para gestión completa de
-                  empleados, cálculo de salarios, planillas y recursos humanos.
-                </p>
-                <div class="tech-tags">
-                  <span class="tech-tag">PHP</span>
-                  <span class="tech-tag">JavaScript</span>
-                  <span class="tech-tag">MariaDB</span>
-                  <span class="tech-tag">API Rest</span>
-                </div>
-                <div class="project-links">
-                  <a href="#" class="project-link">
-                    <span data-translate="btn_view_details">Ver Detalles</span>
-                    <div class="link-glow"></div>
-                  </a>
-                </div>
-              </div>
-              </div> <!-- cierre project-wrapper -->
-            </div> <!-- cierre project-card -->
-          </div> <!-- cierre slide -->
+              <!-- cierre project-card -->
+            </div>
+            <!-- cierre slide -->
 
-          <div class="slide">
-            <div class="project-card cosmic-project">
-              <div class="project-wrapper">
-              <div class="project-image-container">
-                <img
-                  src="/images/factura.jpg"
-                  alt="Sistema de Facturación Electrónica"
-                  class="project-image"
-                />
-                <div class="project-overlay">
-                  <div class="project-glow"></div>
+            <div class="slide">
+              <div class="project-card cosmic-project">
+                <div class="project-wrapper">
+                  <div class="project-image-container">
+                    <img
+                      src="/images/factura.jpg"
+                      alt="Sistema de Facturación Electrónica"
+                      class="project-image"
+                    />
+                    <div class="project-overlay">
+                      <div class="project-glow"></div>
+                    </div>
+                  </div>
+                  <div class="project-content">
+                    <h3 class="project-title" data-translate="project4_title">
+                      Sistema de Facturación Electrónica
+                    </h3>
+                    <p class="project-description" data-translate="project4_description">
+                      Sistema completo de facturación electrónica que cumple con
+                      los requisitos legales para Costa Rica.
+                    </p>
+                    <div class="tech-tags">
+                      <span class="tech-tag">PHP</span>
+                      <span class="tech-tag">NodeJS</span>
+                      <span class="tech-tag">Bootstrap</span>
+                      <span class="tech-tag">API Integration</span>
+                    </div>
+                    <div class="project-links">
+                      <a href="#" class="project-link">
+                        <span data-translate="btn_view_details"
+                          >Ver Detalles</span
+                        >
+                        <div class="link-glow"></div>
+                      </a>
+                    </div>
+                  </div>
                 </div>
+                <!-- cierre project-wrapper -->
               </div>
-              <div class="project-content">
-                <h3 class="project-title">
-                  Sistema de Facturación Electrónica
-                </h3>
-                <p class="project-description">
-                  Sistema completo de facturación electrónica que cumple con los
-                  requisitos legales para Costa Rica.
-                </p>
-                <div class="tech-tags">
-                  <span class="tech-tag">PHP</span>
-                  <span class="tech-tag">NodeJS</span>
-                  <span class="tech-tag">Bootstrap</span>
-                  <span class="tech-tag">API Integration</span>
-                </div>
-                <div class="project-links">
-                  <a href="#" class="project-link">
-                    <span data-translate="btn_view_details">Ver Detalles</span>
-                    <div class="link-glow"></div>
-                  </a>
-                </div>
-              </div>
-              </div> <!-- cierre project-wrapper -->
-            </div> <!-- cierre project-card -->
-          </div> <!-- cierre slide -->
+              <!-- cierre project-card -->
+            </div>
+            <!-- cierre slide -->
 
-          <div class="slide">
-            <div class="project-card cosmic-project">
-              <div class="project-wrapper">
-              <div class="project-image-container">
-                <img
-                  src="/images/contabilidad.jpg"
-                  alt="Sistema de Contabilidad Web"
-                  class="project-image"
-                />
-                <div class="project-overlay">
-                  <div class="project-glow"></div>
+            <div class="slide">
+              <div class="project-card cosmic-project">
+                <div class="project-wrapper">
+                  <div class="project-image-container">
+                    <img
+                      src="/images/contabilidad.jpg"
+                      alt="Sistema de Contabilidad Web"
+                      class="project-image"
+                    />
+                    <div class="project-overlay">
+                      <div class="project-glow"></div>
+                    </div>
+                  </div>
+                  <div class="project-content">
+                    <h3 class="project-title" data-translate="project5_title">
+                      Sistema de Contabilidad Web
+                    </h3>
+                    <p class="project-description" data-translate="project5_description">
+                      Aplicación contable completa con gestión de asientos,
+                      reportes financieros y control de activos.
+                    </p>
+                    <div class="tech-tags">
+                      <span class="tech-tag">PHP</span>
+                      <span class="tech-tag">JavaScript</span>
+                      <span class="tech-tag">MariaDB</span>
+                      <span class="tech-tag">Bootstrap</span>
+                    </div>
+                    <div class="project-links">
+                      <a href="#" class="project-link">
+                        <span data-translate="btn_view_details"
+                          >Ver Detalles</span
+                        >
+                        <div class="link-glow"></div>
+                      </a>
+                    </div>
+                  </div>
                 </div>
+                <!-- cierre project-wrapper -->
               </div>
-              <div class="project-content">
-                <h3 class="project-title" data-translate="project5_title">
-                  Sistema de Contabilidad Web
-                </h3>
-                <p class="project-description">
-                  Aplicación contable completa con gestión de asientos, reportes
-                  financieros y control de activos.
-                </p>
-                <div class="tech-tags">
-                  <span class="tech-tag">PHP</span>
-                  <span class="tech-tag">JavaScript</span>
-                  <span class="tech-tag">MariaDB</span>
-                  <span class="tech-tag">Bootstrap</span>
-                </div>
-                <div class="project-links">
-                  <a href="#" class="project-link">
-                    <span data-translate="btn_view_details">Ver Detalles</span>
-                    <div class="link-glow"></div>
-                  </a>
-                </div>
-              </div>
-              </div> <!-- cierre project-wrapper -->
-            </div> <!-- cierre project-card -->
-          </div> <!-- cierre slide -->
+              <!-- cierre project-card -->
+            </div>
+            <!-- cierre slide -->
 
-          <div class="slide">
-            <div class="project-card cosmic-project">
-              <div class="project-wrapper">
-              <div class="project-image-container">
-                <img
-                  src="/images/financiamiento.png"
-                  alt="Sistema de Financiamiento"
-                  class="project-image"
-                />
-                <div class="project-overlay">
-                  <div class="project-glow"></div>
+            <div class="slide">
+              <div class="project-card cosmic-project">
+                <div class="project-wrapper">
+                  <div class="project-image-container">
+                    <img
+                      src="/images/financiamiento.png"
+                      alt="Sistema de Financiamiento"
+                      class="project-image"
+                    />
+                    <div class="project-overlay">
+                      <div class="project-glow"></div>
+                    </div>
+                  </div>
+                  <div class="project-content">
+                    <h3 class="project-title" data-translate="project6_title">
+                      Sistema de Financiamiento
+                    </h3>
+                    <p class="project-description" data-translate="project6_description">
+                      Plataforma para gestión de financiamientos automotrices
+                      con cálculo de cuotas, tasas de interés y seguimiento de
+                      pagos.
+                    </p>
+                    <div class="tech-tags">
+                      <span class="tech-tag">PHP</span>
+                      <span class="tech-tag">JavaScript</span>
+                      <span class="tech-tag">NodeJS</span>
+                      <span class="tech-tag">MariaDB</span>
+                    </div>
+                    <div class="project-links">
+                      <a href="#" class="project-link">
+                        <span data-translate="btn_view_details"
+                          >Ver Detalles</span
+                        >
+                        <div class="link-glow"></div>
+                      </a>
+                    </div>
+                  </div>
                 </div>
+                <!-- cierre project-wrapper -->
               </div>
-              <div class="project-content">
-                <h3 class="project-title" data-translate="project6_title">
-                  Sistema de Financiamiento
-                </h3>
-                <p class="project-description">
-                  Plataforma para gestión de financiamientos automotrices con
-                  cálculo de cuotas, tasas de interés y seguimiento de pagos.
-                </p>
-                <div class="tech-tags">
-                  <span class="tech-tag">PHP</span>
-                  <span class="tech-tag">JavaScript</span>
-                  <span class="tech-tag">NodeJS</span>
-                  <span class="tech-tag">MariaDB</span>
-                </div>
-                <div class="project-links">
-                  <a href="#" class="project-link">
-                    <span data-translate="btn_view_details">Ver Detalles</span>
-                    <div class="link-glow"></div>
-                  </a>
-                </div>
-              </div>
-              </div> <!-- cierre project-wrapper -->
-            </div> <!-- cierre project-card -->
-          </div> <!-- cierre slide -->
+              <!-- cierre project-card -->
+            </div>
+            <!-- cierre slide -->
 
-          <div class="slide">
-            <div class="project-card cosmic-project">
-              <div class="project-wrapper">
-              <div class="project-image-container">
-                <img
-                  src="/images/visitas.jpg"
-                  alt="Sistema de Control de visitas"
-                  class="project-image"
-                />
-                <div class="project-overlay">
-                  <div class="project-glow"></div>
+            <div class="slide">
+              <div class="project-card cosmic-project">
+                <div class="project-wrapper">
+                  <div class="project-image-container">
+                    <img
+                      src="/images/visitas.jpg"
+                      alt="Sistema de Control de visitas"
+                      class="project-image"
+                    />
+                    <div class="project-overlay">
+                      <div class="project-glow"></div>
+                    </div>
+                  </div>
+                  <div class="project-content">
+                    <h3 class="project-title" data-translate="project7_title">
+                      Sistema de Control de visitas
+                    </h3>
+                    <p class="project-description" data-translate="project7_description">
+                      Aplicación web multi empresa para la gestión de visitas
+                      (entradas y salidas) de una organización, manejo de
+                      usuarios, roles, control de horas de las visitas dentro de
+                      las instalaciones, reportes y monitoreo a tiempo real.
+                    </p>
+                    <div class="tech-tags">
+                      <span class="tech-tag">PHP</span>
+                      <span class="tech-tag">JavaScript</span>
+                      <span class="tech-tag">NodeJS</span>
+                      <span class="tech-tag">MariaDB</span>
+                    </div>
+                    <div class="project-links">
+                      <a href="#" class="project-link">
+                        <span data-translate="btn_view_details"
+                          >Ver Detalles</span
+                        >
+                        <div class="link-glow"></div>
+                      </a>
+                    </div>
+                  </div>
                 </div>
+                <!-- cierre project-wrapper -->
               </div>
-              <div class="project-content">
-                <h3 class="project-title" data-translate="project7_title">
-                  Sistema de Control de visitas
-                </h3>
-                <p class="project-description">
-                  Aplicación web multi empresa para la gestión de visitas
-                  (entradas y salidas) de una organización, manejo de usuarios,
-                  roles, control de horas de las visitas dentro de las
-                  instalaciones, reportes y monitoreo a tiempo real.
-                </p>
-                <div class="tech-tags">
-                  <span class="tech-tag">PHP</span>
-                  <span class="tech-tag">JavaScript</span>
-                  <span class="tech-tag">NodeJS</span>
-                  <span class="tech-tag">MariaDB</span>
-                </div>
-                <div class="project-links">
-                  <a href="#" class="project-link">
-                    <span data-translate="btn_view_details">Ver Detalles</span>
-                    <div class="link-glow"></div>
-                  </a>
-                </div>
-              </div>
-              </div> <!-- cierre project-wrapper -->
-            </div> <!-- cierre project-card -->
-          </div> <!-- cierre slide -->
-          </div> <!-- cierre slide-track -->
-        </div> <!-- cierre slider -->
-      </div> <!-- cierre container -->
+              <!-- cierre project-card -->
+            </div>
+            <!-- cierre slide -->
+          </div>
+          <!-- cierre slide-track -->
+        </div>
+        <!-- cierre slider -->
+      </div>
+      <!-- cierre container -->
     </section>
 
     <!-- Contact Section -->
@@ -2802,14 +2865,14 @@
       <div class="container">
         <div class="section-title">
           <h2 class="cosmic-title contact-title">
-            <span class="title-text">Contacto</span>
+            <span class="title-text" data-translate="contact_title">Contacto</span>
             <div class="contact-signal">
               <div class="signal-ring"></div>
               <div class="signal-ring signal-ring-2"></div>
               <div class="signal-ring signal-ring-3"></div>
             </div>
           </h2>
-          <p class="section-subtitle">
+          <p class="section-subtitle" data-translate="contact_subtitle">
             Conectemos a través del universo digital
           </p>
         </div>
@@ -2817,7 +2880,7 @@
         <div class="contact-grid">
           <div class="contact-info cosmic-info-card">
             <div class="info-card-glow"></div>
-            <h3 class="info-title">Información de Contacto</h3>
+            <h3 class="info-title" data-translate="contact_info">Información de Contacto</h3>
 
             <div class="contact-item cosmic-contact-item">
               <div class="contact-icon">
@@ -2828,7 +2891,7 @@
                 <div class="icon-pulse"></div>
               </div>
               <div class="contact-details">
-                <h4>Email</h4>
+                <h4 data-translate="contact_email">Email</h4>
                 <p>luiscalderontcit@gmail.com</p>
               </div>
             </div>
@@ -2842,8 +2905,8 @@
                 <div class="icon-pulse"></div>
               </div>
               <div class="contact-details">
-                <h4>Ubicación</h4>
-                <p>Costa Rica</p>
+                <h4 data-translate="contact_location">Ubicación</h4>
+                <p data-translate="contact_location_value">Costa Rica</p>
               </div>
             </div>
 
@@ -2856,13 +2919,13 @@
                 <div class="icon-pulse availability-pulse"></div>
               </div>
               <div class="contact-details">
-                <h4>Disponibilidad</h4>
-                <p class="availability-status">Disponible para proyectos</p>
+                <h4 data-translate="contact_availability">Disponibilidad</h4>
+                <p class="availability-status" data-translate="contact_available">Disponible para proyectos</p>
               </div>
             </div>
 
             <div class="social-links cosmic-social">
-              <h4 class="social-title">Sígueme en mis redes</h4>
+              <h4 class="social-title" data-translate="contact_social">Sígueme en mis redes</h4>
               <div class="social-grid">
                 <a
                   href="https://github.com/caldeseio"
@@ -2906,12 +2969,13 @@
 
           <div class="contact-form cosmic-form-card">
             <div class="form-card-glow"></div>
-            <h3 class="form-title">Envía una señal al espacio</h3>
+            <h3 class="form-title" data-translate="form_title">Envía una señal al espacio</h3>
             <form class="cosmic-form">
               <div class="form-group cosmic-form-group">
                 <input
                   type="text"
                   class="form-control cosmic-input"
+                  data-translate-placeholder="form_name"
                   placeholder="Tu nombre"
                   required
                 />
@@ -2921,6 +2985,7 @@
                 <input
                   type="email"
                   class="form-control cosmic-input"
+                  data-translate-placeholder="form_email"
                   placeholder="Tu email"
                   required
                 />
@@ -2930,6 +2995,7 @@
                 <input
                   type="text"
                   class="form-control cosmic-input"
+                  data-translate-placeholder="form_subject"
                   placeholder="Asunto"
                   required
                 />
@@ -2939,13 +3005,14 @@
                 <textarea
                   class="form-control cosmic-input cosmic-textarea"
                   rows="6"
+                  data-translate-placeholder="form_message"
                   placeholder="Tu mensaje"
                   required
                 ></textarea>
                 <div class="input-glow"></div>
               </div>
               <button type="submit" class="submit-btn cosmic-submit-btn">
-                <span class="btn-text">Enviar Mensaje</span>
+                <span class="btn-text" data-translate="btn_send">Enviar Mensaje</span>
                 <div class="btn-rockets">
                   <div class="rocket rocket-1">🚀</div>
                   <div class="rocket rocket-2">✨</div>
@@ -4667,19 +4734,19 @@
 
           project4_title: "Sistema de Facturación Electrónica",
           project4_description:
-            "Sistema completo de facturación electrónica con hacienda de Costa Rica, control de inventario y reportes avanzados.",
+            "Sistema completo de facturación electrónica que cumple con los requisitos legales para Costa Rica.",
 
           project5_title: "Sistema de Contabilidad Web",
           project5_description:
-            "Aplicación contable completa con balances, estados financieros, asientos contables y reportes tributarios.",
+            "Aplicación contable completa con gestión de asientos, reportes financieros y control de activos.",
 
           project6_title: "Sistema de Financiamiento",
           project6_description:
-            "Plataforma para gestión de préstamos, cuotas, intereses y control financiero empresarial.",
+            "Plataforma para gestión de financiamientos automotrices con cálculo de cuotas, tasas de interés y seguimiento de pagos.",
 
           project7_title: "Sistema de Control de visitas",
           project7_description:
-            "Aplicación web multi empresa para control de citas, registro de visitas y gestión de ingresos.",
+            "Aplicación web multi empresa para la gestión de visitas (entradas y salidas) de una organización, manejo de usuarios, roles, control de horas de las visitas dentro de las instalaciones, reportes y monitoreo a tiempo real.",
 
           btn_view_project: "Ver Proyecto",
           btn_view_details: "Ver Detalles",
@@ -4748,19 +4815,19 @@
 
           project4_title: "Electronic Invoicing System",
           project4_description:
-            "Complete electronic invoicing system with Costa Rica treasury, inventory control and advanced reports.",
+            "Complete electronic invoicing system that complies with legal requirements for Costa Rica.",
 
           project5_title: "Web Accounting System",
           project5_description:
-            "Complete accounting application with balances, financial statements, accounting entries and tax reports.",
+            "Complete accounting application with entry management, financial reports and asset control.",
 
           project6_title: "Financing System",
           project6_description:
-            "Platform for loan management, installments, interest and business financial control.",
+            "Platform for automotive financing management with installment calculation, interest rates and payment tracking.",
 
           project7_title: "Visit Control System",
           project7_description:
-            "Multi-company web application for appointment control, visit registration and income management.",
+            "Multi-company web application for visit management (entries and exits) of an organization, user management, roles, visitor hours control within facilities, reports and real-time monitoring.",
 
           btn_view_project: "View Project",
           btn_view_details: "View Details",
@@ -4801,6 +4868,14 @@
           }
         });
 
+        // Actualizar placeholders
+        document.querySelectorAll("[data-translate-placeholder]").forEach((element) => {
+          const key = element.getAttribute("data-translate-placeholder");
+          if (translations[lang] && translations[lang][key]) {
+            element.placeholder = translations[lang][key];
+          }
+        });
+
         // Actualizar letras animadas de los botones
         updateAnimatedButtonLetters(
           "letters-projects",
@@ -4815,6 +4890,18 @@
         const currentLangEl = document.getElementById("current-lang");
         if (currentLangEl) {
           currentLangEl.textContent = lang === "es" ? "🇪🇸 ES" : "🇺🇸 EN";
+        }
+
+        // Actualizar CV download link según idioma
+        const cvLink = document.getElementById("cv-download-link");
+        if (cvLink) {
+          if (lang === "es") {
+            cvLink.href = "pdf/CV_Luis_Calderon_ESP.pdf";
+            cvLink.download = "Luis_Calderon_CV_ESP.pdf";
+          } else {
+            cvLink.href = "pdf/CV_LuisCalderon_ENG.pdf";
+            cvLink.download = "Luis_Calderon_CV_ENG.pdf";
+          }
         }
 
         // Actualizar opciones activas
@@ -4903,53 +4990,23 @@
       console.log("✨ Sistema de temas e idiomas inicializado");
 
       // ============================================
-      // CARRUSEL INFINITO HORIZONTAL - SLIDER
+      // CARRUSEL INFINITO - SIN JAVASCRIPT
       // ============================================
-      function initProjectsCarousel() {
-        const slideTrack = document.getElementById('projectsCarousel');
-        if (!slideTrack) {
-          console.warn('⚠️ Slide track no encontrado');
-          return;
-        }
-
-        // Obtener todos los slides originales
-        const originalSlides = Array.from(slideTrack.querySelectorAll('.slide'));
-
-        if (originalSlides.length === 0) {
-          console.warn('⚠️ No hay slides en el carrusel');
-          return;
-        }
-
-        // Duplicar todos los slides una vez (7 originales + 7 clones = 14 total)
-        // La animación mueve -50% (7 slides) para loop seamless
-        originalSlides.forEach(slide => {
-          const clone = slide.cloneNode(true);
-          slideTrack.appendChild(clone);
-        });
-
-        console.log('✅ Carrusel slider inicializado');
-        console.log(`📊 ${originalSlides.length} proyectos originales + ${originalSlides.length} clones = ${slideTrack.children.length} slides totales`);
-      }
-
-      // Inicializar cuando el DOM esté listo
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initProjectsCarousel);
-      } else {
-        initProjectsCarousel();
-      }
+      // El carrusel funciona 100% con CSS usando animation-delay
+      console.log("✅ Carrusel CSS puro inicializado");
 
       // ============================================
       // AOS (Animate On Scroll) INITIALIZATION
       // ============================================
       AOS.init({
         duration: 1000,
-        easing: 'ease-out-cubic',
+        easing: "ease-out-cubic",
         once: false,
         mirror: true,
         offset: 100,
       });
 
-      console.log('✨ Animaciones AOS inicializadas');
+      console.log("✨ Animaciones AOS inicializadas");
     </script>
   </body>
 </html>
