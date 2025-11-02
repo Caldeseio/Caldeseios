@@ -1712,46 +1712,27 @@
     <section id="about" class="about">
       <!-- Fondo animado de estrellas -->
       <div class="stars">
-        <div
-          class="star"
-          style="width: 2px; height: 2px; top: 20%; left: 10%"
-        ></div>
-        <div
-          class="star"
-          style="width: 1px; height: 1px; top: 30%; left: 80%"
-        ></div>
-        <div
-          class="star"
-          style="width: 3px; height: 3px; top: 10%; left: 60%"
-        ></div>
-        <div
-          class="star"
-          style="width: 2px; height: 2px; top: 70%; left: 20%"
-        ></div>
-        <div
-          class="star"
-          style="width: 1px; height: 1px; top: 80%; left: 90%"
-        ></div>
-        <div
-          class="star"
-          style="width: 2px; height: 2px; top: 50%; left: 15%"
-        ></div>
-        <div
-          class="star"
-          style="width: 1px; height: 1px; top: 15%; left: 85%"
-        ></div>
-        <div
-          class="star"
-          style="width: 3px; height: 3px; top: 90%; left: 50%"
-        ></div>
-        <div
-          class="star"
-          style="width: 2px; height: 2px; top: 25%; left: 70%"
-        ></div>
-        <div
-          class="star"
-          style="width: 1px; height: 1px; top: 60%; left: 40%"
-        ></div>
+        <div class="star" style="width: 2px; height: 2px; top: 20%; left: 10%"></div>
+        <div class="star" style="width: 1px; height: 1px; top: 30%; left: 80%"></div>
+        <div class="star" style="width: 3px; height: 3px; top: 10%; left: 60%"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 70%; left: 20%"></div>
+        <div class="star" style="width: 1px; height: 1px; top: 80%; left: 90%"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 50%; left: 15%"></div>
+        <div class="star" style="width: 1px; height: 1px; top: 15%; left: 85%"></div>
+        <div class="star" style="width: 3px; height: 3px; top: 90%; left: 50%"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 25%; left: 70%"></div>
+        <div class="star" style="width: 1px; height: 1px; top: 60%; left: 40%"></div>
+        <!-- More stars for density -->
+        <div class="star" style="width: 1px; height: 1px; top: 5%; left: 25%"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 35%; left: 55%"></div>
+        <div class="star" style="width: 1px; height: 1px; top: 65%; left: 75%"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 85%; left: 30%"></div>
+        <div class="star" style="width: 1px; height: 1px; top: 45%; left: 95%"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 12%; left: 35%"></div>
+        <div class="star" style="width: 1px; height: 1px; top: 55%; left: 65%"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 75%; left: 5%"></div>
+        <div class="star" style="width: 1px; height: 1px; top: 95%; left: 45%"></div>
+        <div class="star" style="width: 1px; height: 1px; top: 18%; left: 48%"></div>
       </div>
 
       <!-- Nebulosas flotantes -->
@@ -1767,6 +1748,16 @@
         <div class="particle"></div>
         <div class="particle"></div>
       </div>
+
+      <!-- Shooting stars / Estrellas fugaces -->
+      <div class="shooting-stars">
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+      </div>
+
+      <!-- Galaxy spiral background -->
+      <div class="galaxy-spiral"></div>
 
       <div class="container">
         <div class="section-title">
@@ -2000,6 +1991,7 @@
         background: white;
         border-radius: 50%;
         animation: twinkle 3s infinite alternate;
+        will-change: opacity, transform;
       }
 
       .star:nth-child(odd) {
@@ -2029,6 +2021,7 @@
         animation: float 25s infinite ease-in-out;
         opacity: 0.2;
         z-index: 1;
+        will-change: transform;
       }
 
       .nebula-1 {
@@ -2090,6 +2083,7 @@
         border-radius: 50%;
         animation: particle-float 15s infinite linear;
         opacity: 0.8;
+        will-change: transform, opacity;
       }
 
       .particle:nth-child(1) {
@@ -2132,6 +2126,184 @@
         100% {
           transform: translateY(-100px) translateX(50px) rotate(360deg);
           opacity: 0;
+        }
+      }
+
+      /* Shooting stars / Estrellas fugaces */
+      .shooting-stars {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 2;
+        overflow: hidden;
+      }
+
+      .shooting-star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8),
+                    0 0 20px 4px rgba(0, 212, 255, 0.6);
+        will-change: transform;
+      }
+
+      .shooting-star::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 80px;
+        height: 1px;
+        background: linear-gradient(90deg,
+          rgba(255, 255, 255, 0.8),
+          rgba(0, 212, 255, 0.4),
+          transparent);
+        transform: translateX(2px);
+      }
+
+      .shooting-star:nth-child(1) {
+        top: 10%;
+        left: 10%;
+        animation: shooting-star-1 8s linear infinite;
+      }
+
+      .shooting-star:nth-child(2) {
+        top: 30%;
+        left: 50%;
+        animation: shooting-star-2 12s linear infinite;
+        animation-delay: 3s;
+      }
+
+      .shooting-star:nth-child(3) {
+        top: 60%;
+        left: 80%;
+        animation: shooting-star-3 10s linear infinite;
+        animation-delay: 6s;
+      }
+
+      @keyframes shooting-star-1 {
+        0% {
+          transform: translateX(0) translateY(0);
+          opacity: 0;
+        }
+        5% {
+          opacity: 1;
+        }
+        95% {
+          opacity: 0;
+        }
+        100% {
+          transform: translateX(300px) translateY(300px);
+          opacity: 0;
+        }
+      }
+
+      @keyframes shooting-star-2 {
+        0% {
+          transform: translateX(0) translateY(0);
+          opacity: 0;
+        }
+        5% {
+          opacity: 1;
+        }
+        95% {
+          opacity: 0;
+        }
+        100% {
+          transform: translateX(-400px) translateY(400px);
+          opacity: 0;
+        }
+      }
+
+      @keyframes shooting-star-3 {
+        0% {
+          transform: translateX(0) translateY(0);
+          opacity: 0;
+        }
+        5% {
+          opacity: 1;
+        }
+        95% {
+          opacity: 0;
+        }
+        100% {
+          transform: translateX(-300px) translateY(300px);
+          opacity: 0;
+        }
+      }
+
+      /* Galaxy Spiral Effect */
+      .galaxy-spiral {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 600px;
+        height: 600px;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.15;
+        will-change: transform;
+      }
+
+      .galaxy-spiral::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          ellipse at center,
+          transparent 20%,
+          rgba(138, 43, 226, 0.1) 40%,
+          rgba(75, 0, 130, 0.15) 60%,
+          transparent 80%
+        );
+        border-radius: 50%;
+        animation: galaxy-rotate 60s linear infinite;
+      }
+
+      .galaxy-spiral::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          ellipse at center,
+          transparent 30%,
+          rgba(0, 212, 255, 0.08) 50%,
+          rgba(255, 0, 110, 0.08) 70%,
+          transparent 90%
+        );
+        border-radius: 50%;
+        animation: galaxy-rotate-reverse 80s linear infinite;
+      }
+
+      @keyframes galaxy-rotate {
+        from {
+          transform: rotate(0deg) scale(1);
+        }
+        50% {
+          transform: rotate(180deg) scale(1.1);
+        }
+        to {
+          transform: rotate(360deg) scale(1);
+        }
+      }
+
+      @keyframes galaxy-rotate-reverse {
+        from {
+          transform: rotate(360deg) scale(1);
+        }
+        50% {
+          transform: rotate(180deg) scale(0.9);
+        }
+        to {
+          transform: rotate(0deg) scale(1);
         }
       }
 
@@ -2503,6 +2675,36 @@
       <div class="project-nebula project-nebula-1"></div>
       <div class="project-nebula project-nebula-2"></div>
       <div class="project-nebula project-nebula-3"></div>
+      <div class="project-nebula project-nebula-4"></div>
+
+      <!-- Shooting stars for projects -->
+      <div class="shooting-stars">
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+      </div>
+
+      <!-- Galaxy spiral for projects -->
+      <div class="galaxy-spiral"></div>
+
+      <!-- Additional twinkling stars -->
+      <div class="stars">
+        <div class="star" style="width: 2px; height: 2px; top: 15%; left: 8%"></div>
+        <div class="star" style="width: 1px; height: 1px; top: 25%; left: 82%"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 8%; left: 62%"></div>
+        <div class="star" style="width: 1px; height: 1px; top: 72%; left: 18%"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 82%; left: 92%"></div>
+        <div class="star" style="width: 1px; height: 1px; top: 52%; left: 12%"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 12%; left: 88%"></div>
+        <div class="star" style="width: 1px; height: 1px; top: 92%; left: 52%"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 28%; left: 72%"></div>
+        <div class="star" style="width: 1px; height: 1px; top: 62%; left: 38%"></div>
+        <div class="star" style="width: 1px; height: 1px; top: 42%; left: 58%"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 68%; left: 28%"></div>
+        <div class="star" style="width: 1px; height: 1px; top: 38%; left: 78%"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 88%; left: 42%"></div>
+        <div class="star" style="width: 1px; height: 1px; top: 22%; left: 48%"></div>
+      </div>
 
       <div class="container">
         <div class="section-title">
@@ -2858,9 +3060,44 @@
           <div class="orb orb-2"></div>
           <div class="orb orb-3"></div>
           <div class="orb orb-4"></div>
+          <div class="orb orb-5"></div>
         </div>
         <div class="cosmic-grid"></div>
       </div>
+
+      <!-- Shooting stars for contact -->
+      <div class="shooting-stars">
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+      </div>
+
+      <!-- Galaxy spiral for contact -->
+      <div class="galaxy-spiral"></div>
+
+      <!-- Twinkling stars for contact -->
+      <div class="stars">
+        <div class="star" style="width: 2px; height: 2px; top: 10%; left: 15%"></div>
+        <div class="star" style="width: 1px; height: 1px; top: 20%; left: 85%"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 5%; left: 65%"></div>
+        <div class="star" style="width: 1px; height: 1px; top: 75%; left: 25%"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 85%; left: 95%"></div>
+        <div class="star" style="width: 1px; height: 1px; top: 55%; left: 10%"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 15%; left: 90%"></div>
+        <div class="star" style="width: 1px; height: 1px; top: 95%; left: 55%"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 30%; left: 75%"></div>
+        <div class="star" style="width: 1px; height: 1px; top: 65%; left: 35%"></div>
+        <div class="star" style="width: 1px; height: 1px; top: 45%; left: 60%"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 70%; left: 30%"></div>
+        <div class="star" style="width: 1px; height: 1px; top: 35%; left: 80%"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 90%; left: 45%"></div>
+        <div class="star" style="width: 1px; height: 1px; top: 25%; left: 50%"></div>
+      </div>
+
+      <!-- More cosmic nebulas -->
+      <div class="nebula nebula-1"></div>
+      <div class="nebula nebula-2"></div>
+      <div class="nebula nebula-3"></div>
 
       <div class="container">
         <div class="section-title">
@@ -3132,6 +3369,7 @@
         filter: blur(100px);
         animation: nebula-float 40s infinite ease-in-out;
         opacity: 0.15;
+        will-change: transform;
       }
 
       .project-nebula-1 {
@@ -3159,6 +3397,15 @@
         top: 60%;
         right: 70%;
         animation-delay: -30s;
+      }
+
+      .project-nebula-4 {
+        width: 450px;
+        height: 450px;
+        background: radial-gradient(circle, #00d4ff, transparent);
+        top: 40%;
+        left: 50%;
+        animation-delay: -20s;
       }
 
       @keyframes nebula-float {
@@ -3516,6 +3763,7 @@
         );
         animation: orb-float 20s infinite ease-in-out;
         opacity: 0.1;
+        will-change: transform;
       }
 
       .orb-1 {
@@ -3568,6 +3816,19 @@
           transparent
         );
         animation-delay: -15s;
+      }
+
+      .orb-5 {
+        width: 90px;
+        height: 90px;
+        top: 80%;
+        left: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 0, 110, 0.4),
+          transparent
+        );
+        animation-delay: -8s;
       }
 
       @keyframes orb-float {
@@ -4371,6 +4632,117 @@
         z-index: 0;
         pointer-events: none;
       }
+
+      /* ============================================ */
+      /* MOBILE PERFORMANCE OPTIMIZATIONS */
+      /* ============================================ */
+
+      /* Reduce animations on mobile devices for better performance */
+      @media (max-width: 768px) {
+        /* Reduce number of visible stars on mobile */
+        .star:nth-child(n+11) {
+          display: none;
+        }
+
+        /* Simplify galaxy spiral on mobile */
+        .galaxy-spiral {
+          width: 400px;
+          height: 400px;
+          opacity: 0.08;
+        }
+
+        /* Reduce blur on nebulas for better performance */
+        .nebula,
+        .project-nebula {
+          filter: blur(60px);
+        }
+
+        /* Slower, less intensive animations on mobile */
+        .shooting-star {
+          animation-duration: 12s;
+        }
+
+        .galaxy-spiral::before,
+        .galaxy-spiral::after {
+          animation-duration: 90s;
+        }
+
+        /* Reduce particle count on mobile */
+        .particle:nth-child(n+4) {
+          display: none;
+        }
+      }
+
+      /* ============================================ */
+      /* REDUCED MOTION SUPPORT */
+      /* ============================================ */
+
+      /* Respect user's motion preferences for accessibility */
+      @media (prefers-reduced-motion: reduce) {
+        /* Disable all animations for users who prefer reduced motion */
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+
+        /* Remove will-change to prevent layout shifts */
+        .star,
+        .particle,
+        .nebula,
+        .project-nebula,
+        .orb,
+        .shooting-star,
+        .galaxy-spiral {
+          will-change: auto;
+        }
+
+        /* Hide purely decorative animated elements */
+        .shooting-stars,
+        .cosmic-particles {
+          display: none;
+        }
+
+        /* Keep galaxy spiral but make it static */
+        .galaxy-spiral {
+          opacity: 0.05;
+        }
+
+        /* Reduce glow effects */
+        .card-glow,
+        .stat-glow,
+        .skill-glow,
+        .project-glow,
+        .info-card-glow,
+        .form-card-glow {
+          display: none;
+        }
+      }
+
+      /* ============================================ */
+      /* PERFORMANCE: GPU ACCELERATION */
+      /* ============================================ */
+
+      /* Force GPU acceleration for smooth animations */
+      .cosmic-card,
+      .cosmic-project,
+      .cosmic-info-card,
+      .cosmic-form-card,
+      .skill-item,
+      .project-card {
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        perspective: 1000px;
+      }
+
+      /* Optimize carousel for performance */
+      .slider > .slide {
+        transform: translateZ(0);
+        backface-visibility: hidden;
+      }
+
       /* Estilos para cursor personalizado */
     </style>
 
